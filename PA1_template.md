@@ -1,12 +1,18 @@
 # Reproducible Research: Peer Assessment 1
 
 ## Loading and preprocessing the data
-Workdirectory has already been set. Within the workdirectory the required files for this assignment are located in subdir "activity".
-Load the data from CSV file in this directory, then show summary.
+Workdirectory has already been set.  
+Within the workdirectory the required files for this assignment are located in subdir "activity".  
+Load the data from CSV file in this directory into dataframe "df".
 
 ```r
 myfile = "activity/activity.csv"
 df <- read.csv(file = myfile, sep = ",", na.strings = "NA", stringsAsFactors = FALSE)
+```
+
+Then show summary  
+
+```r
 summary(df)
 ```
 
@@ -32,7 +38,7 @@ hist(dt.total_steps_by_day$steps, main = "Total number steps per day", xlab = "S
     col = "red")
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 There are several ways to get the mean and median of the total number of steps taken per day. Just read it from the summary over the aggregated set.
 
@@ -65,9 +71,9 @@ median(dt.total_steps_by_day2$steps)
 ```
 
 ## What is the average daily activity pattern?
-The time series plot: 
-  (x-axis) 5-minute interval
-  (y-axis) average number of steps taken, across all days
+The time series plot:  
+  (x-axis) 5-minute interval  
+  (y-axis) average number of steps taken, across all days  
 Use a different aggregate, based on column interval. Also remove NA values.
 
 ```r
@@ -77,10 +83,20 @@ plot(x = dt.mean_steps_by_interval$interval, y = dt.mean_steps_by_interval$steps
     type = "l", col = "black", main = "", xlab = "Interval", ylab = "Average number steps")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+
 
 The 5-minute interval, on average across all the days in the dataset, contains the maximum number 
-dt.s2[which.max( dt.s2$steps )]
+
+```r
+dt.mean_steps_by_interval[which.max(dt.mean_steps_by_interval$steps)]
+```
+
+```
+##    interval steps
+## 1:      835 206.2
+```
+
 
 ## Imputing missing values
 Total number of rows with NA values, use original data frame.
@@ -109,7 +125,7 @@ hist(dt.no_NA.total_steps_by_day$steps, main = "Total number steps per day",
     xlab = "Steps per day", col = "red")
 ```
 
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8.png) 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
 
 
 
@@ -130,11 +146,12 @@ median(dt.no_NA.total_steps_by_day$steps)
 ## [1] 10395
 ```
 
-These results are different compared to the first part of the assignment. By replacing NA with 0, the average total number of steps per day go down, as a result the median shifts towards lower values as well.
+These results are different compared to the first part of the assignment.  
+By replacing NA with 0, the average total number of steps per day go down, as a result the median shifts towards lower values as well.  
 
 ## Are there differences in activity patterns between weekdays and weekends?
-Create new factor variable in the dataset with 2 levels - "weekday" and "weekend".
-In order to get labels/captions in English, set the Locale
+Create new factor variable in the dataset with 2 levels - "weekday" and "weekend".  
+In order to get labels/captions in English, set the Locale  
 Show the first few rows, as prove it worked.
 
 ```r
